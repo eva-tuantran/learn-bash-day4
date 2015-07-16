@@ -8,7 +8,7 @@ if [ ! -f $FPATH"logs.log" ]; then
 	echo "" > $FPATH"logs.log"
 fi
 
-for ((i=1;i<=END;i++)); 
+for $i in $(seq -w 1 END)
 do
 	if [ ! -f $FPATH"result"$i".log.gz" ]; then
 		curl "http://192.168.33.99/result.day0$i.log.gz" > $FPATH"result$i.log.gz"
@@ -29,7 +29,7 @@ echo "${Array[" "]}"
 
 echo "========== Number unique user in each day ==========="
 
-for ((i=1;i<=END;i++)); 
+for $i in $(seq -w 1 END)
 do
 	if [ $FPATH"result"$i".log.gz" ]; then
 		# set to temp
@@ -52,12 +52,18 @@ COUNTRY=$(cut -f 2 $FPATH"logs_temp.log" | sort | uniq)
 
 echo $COUNTRY > $FPATH"logs_temp.log"
 
+#
+# Fetch data string to array
+#
 index=0
 while read line ; do
     MYARRAY[$index]="$line"
     index=$(($index+1))
 done < $FPATH"logs_temp.log"
 
+#
+# show array data
+#
 for each in "${MYARRAY[@]}"
 do
 	num=$(grep -o $each $FPATH"logs.log" | wc -l)
