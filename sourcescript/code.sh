@@ -1,4 +1,5 @@
 #!/bin/bash
+START=$(date +%s)
 
 echo "========== Process get file path =========="
 END=5
@@ -8,7 +9,7 @@ if [ ! -f $FPATH"logs.log" ]; then
 	echo "" > $FPATH"logs.log"
 fi
 
-for $i in $(seq -w 1 END)
+for((i=1; i<=END;i++))
 do
 	if [ ! -f $FPATH"result"$i".log.gz" ]; then
 		curl "http://192.168.33.99/result.day0$i.log.gz" > $FPATH"result$i.log.gz"
@@ -29,7 +30,7 @@ echo "${Array[" "]}"
 
 echo "========== Number unique user in each day ==========="
 
-for $i in $(seq -w 1 END)
+for((i=1; i<=END;i++))
 do
 	if [ $FPATH"result"$i".log.gz" ]; then
 		# set to temp
@@ -69,3 +70,7 @@ do
 	num=$(grep -o $each $FPATH"logs.log" | wc -l)
   	echo $each " : " $num " users"; 
 done
+
+END=$(date +%s)
+DIFF=$(( $END - $START ))
+echo "It took $DIFF seconds"

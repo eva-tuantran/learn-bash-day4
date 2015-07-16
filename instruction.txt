@@ -1,4 +1,3 @@
 * BUILD service in folder /service/vagrant
 	ip: 192.168.33.99
-* BUILD linux and run bash in: /linux/vagrant
-	
+* Source bash script located in folder /sourcescript
