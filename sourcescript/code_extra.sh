@@ -23,7 +23,7 @@ COUNT=$(wc -l $FPATH"logs.log")
 #
 # Number unique user id 
 #
-
+# Test conflict banch1
 set -- "$COUNT" 
 IFS=" "; declare -a Array=($*) 
 echo "${Array[" "]}"
